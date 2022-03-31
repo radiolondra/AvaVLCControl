@@ -15,17 +15,12 @@
     </Design.DataContext>
 
 	<Grid 
-		RowDefinitions="Auto,*" 
-		ColumnDefinitions="*">
-
-		<controls:Controls 
-			Grid.Row="0" 
-			Grid.Column="0"/>
+		RowDefinitions="*" 
+		ColumnDefinitions="*">		
 
 		<controls:PlayerControl
 			Name="Player"
-			Grid.Row="1"
-			Grid.Column="0"/>
+			/>
 		
 		
 	</Grid>

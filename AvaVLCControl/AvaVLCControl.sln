@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaVLCControl", "AvaVLCControl\AvaVLCControl.csproj", "{0164A1F3-194C-4C1C-83F1-BE6903B592B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibVLCSharp.Avalonia", "LibVLCSharp.Avalonia\LibVLCSharp.Avalonia.csproj", "{F3A8147D-C9B5-4C2F-9BC0-7B32A3372DDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibVLCSharp.Avalonia", "..\LibVLCSharp.Avalonia\LibVLCSharp.Avalonia.csproj", "{F3A8147D-C9B5-4C2F-9BC0-7B32A3372DDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

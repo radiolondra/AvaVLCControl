@@ -26,13 +26,7 @@ LibVLC needs to be installed separately, see VideoLAN.LibVLC.* packages.
     <Compile Remove="!saved\**" />
     <EmbeddedResource Remove="!saved\**" />
     <None Remove="!saved\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="VLCBitmapRenderer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="VideoView - Copia.cs-ORIGINALE" />
-  </ItemGroup>
+  </ItemGroup>  
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.13" />
     <PackageReference Include="CSharpFunctionalExtensions" Version="2.29.0" />

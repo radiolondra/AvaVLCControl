@@ -18,6 +18,7 @@ using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Input;
 using System.Diagnostics;
+using Avalonia.Media.Immutable;
 
 namespace LibVLCSharp.Avalonia
 {
@@ -41,7 +42,10 @@ namespace LibVLCSharp.Avalonia
         public IPlatformHandle hndl;
 
         public static readonly StyledProperty<object> ContentProperty =
-            ContentControl.ContentProperty.AddOwner<VideoView>();        
+            ContentControl.ContentProperty.AddOwner<VideoView>();
+
+        public static readonly StyledProperty<IBrush> BackgroundProperty =
+            Panel.BackgroundProperty.AddOwner<VideoView>();
 
         private Window _floatingContent;
         private IDisposable _disposables;
@@ -79,6 +83,12 @@ namespace LibVLCSharp.Avalonia
             set => SetValue(ContentProperty, value);
         }
 
+        public IBrush Background
+        {
+            get => GetValue(BackgroundProperty);
+            set => SetValue(BackgroundProperty, value);
+        }
+
         public void SetContent(object o)
         {
             Content = o;
@@ -86,8 +96,7 @@ namespace LibVLCSharp.Avalonia
         
         private void InitializeNativeOverlay()
         {
-            if (!((IVisual)this).IsAttachedToVisualTree) return;
-            
+            if (!((IVisual)this).IsAttachedToVisualTree) return;            
 
             if (_floatingContent == null && Content != null)            
             {
@@ -96,24 +105,27 @@ namespace LibVLCSharp.Avalonia
 
                 _floatingContent = new Window()
                 {
-                    SystemDecorations = SystemDecorations.None,                    
+                    SystemDecorations = SystemDecorations.None,
+                    
                     TransparencyLevelHint = WindowTransparencyLevel.Transparent,                    
                     Background = Brushes.Transparent,                                        
+                    
                     SizeToContent = SizeToContent.WidthAndHeight,
-                    //Width = this.Width,
-                    //Height = 100,
+                    CanResize = false,
                     
                     ShowInTaskbar = false,
-                    //DataContext=this.Parent.DataContext,
-                    Topmost=true,
-                    Opacity = 0,
+                    
+                    //Topmost=true,
+                    ZIndex = 2147483647,
+
+                    Opacity = 1,
                     
                 };
-                
+                                
                 _floatingContent.PointerEnter += Controls_PointerEnter;
                 _floatingContent.PointerLeave += Controls_PointerLeave;
 
-
+                
                 _disposables = new CompositeDisposable()
                 {
                     _floatingContent.Bind(Window.ContentProperty, this.GetObservable(ContentProperty)),
@@ -128,14 +140,14 @@ namespace LibVLCSharp.Avalonia
             ShowNativeOverlay(IsEffectivelyVisible);
         }
 
-        public void Controls_PointerEnter(object? sender, PointerEventArgs e)
+        public void Controls_PointerEnter(object sender, PointerEventArgs e)
         {
             Debug.WriteLine("POINTER ENTER");
             _floatingContent.Opacity = 0.8;
             
         }
 
-        public void Controls_PointerLeave(object? sender, PointerEventArgs e)
+        public void Controls_PointerLeave(object sender, PointerEventArgs e)
         {
             Debug.WriteLine("POINTER LEAVE");
             _floatingContent.Opacity = 0;
